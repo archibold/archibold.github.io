@@ -1,0 +1,1 @@
+var slideShow=remark.create({highlightStyle:"github",highlightLanguage:"remark"});
