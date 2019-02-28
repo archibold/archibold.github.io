@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>React Components</title>
+    <meta name="description" content="How to think in react">
+    <meta name="author" content="You">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Komponentowa architektura w web aplikacjach
+
+.right[![](images/logo.png "Flux")]
+
+---
+class: title, center, middle, inverse
+# Agenda
+.left[
+- porównanie FLUX z MVC
+- FLUX
+- React jako View
+- Przykłady
+]
+---
+class: center, middle
+## MVC → Flux
+---
+class: center, middle
+## MVC
+![](images/mvc1.png "Flux")
+---
+class: center, middle
+## MVC
+![](images/mvc2.png "Flux")
+---
+class: center, middle
+## Flux
+![](images/flux.png "Flux")
+---
+class: center, middle
+# Actions
+Akcje wykonywane przez użytkownika, API, serwisy,
+
+---
+class: center, middle
+# Dispatcher
+Hub pomiędzy akcjami a storem. Przesyła odpowiednie informacje do odpowiedniego stora
+
+---
+class: center, middle
+
+# Store
+Redux store trzyma nam aktualny stan aplikacji
+---
+class: center, middle
+# View
+React dostarcza komponentową architekturę opartą na wirtualnym DOMie.
+Do widoków dostarczamy jedynie propsy (properties)
+---
+class: center, middle
+
+## Angular czy... React?
+---
+class: center, middle
+
+## Angular czy... React?
+Pytanie pozbawione sensu...
+---
+class: center, middle
+
+Angular to cały FLUX (uproszczenie) a React to sam View we wzorcu projektowym FLUX
+---
+class: center, middle
+
+## React pozwala na budowanie komponentowej architektury
+---
+class: center, middle
+## Simple form
+![](images/login.png "Flux")
+---
+class: center, middle
+![](images/input.png "Flux")
+
+
+---
+# Input component
+## Props
+  - label
+  - value
+  - placeholder
+  - type
+
+---
+# Input component
+
+## Props
+  - label
+  - value
+  - placeholder
+  - type
+
+## Actions
+  - onChange
+---
+class: center, middle
+```js
+import React from 'react';
+import styles from './Input.css';
+
+const Input = ({ label, value, type, placeholder, onChange }) => (
+  <div className={styles.container}>
+    <p>{label}</p>
+    <input
+      defaultValue={value}
+      type={type}
+      placeholder={placeholder}
+      onChange={(e) => { onChange(e.target.value); }}
+    />
+  </div>
+);
+
+export default Input;
+```
+---
+class: center, middle
+![](images/button.png "Flux")
+---
+# Button component
+## Props
+  - text
+---
+# Button component
+
+## Props
+  - text
+
+## Actions
+  - onClick
+---
+class: center, middle
+```js
+import React from 'react';
+import styles from './Button.css';
+
+const Button = ({ onClick, children }) => (
+  <div className={styles.container}>
+    <button onClick={onClick}>
+      {children}
+    </button>
+  </div>
+);
+
+export default Button;
+```
+---
+class: center, middle
+## Simple form
+![](images/login.png "Flux")
+---
+class: center, middle
+![](images/actions.png "Flux")
+---
+class: center, middle
+![](images/props.png "Flux")
+---
+class: center, middle
+```js
+import React from 'react';
+import Button from 'Button';
+import Input from 'Input';
+
+export class App extends React.Component {
+  render() {
+    return (
+        <div>
+          <Input onChange={this.onChangeLogin}/>
+          <Input onChange={this.onChangePassword}/>
+          <Button onClick={this.onClick}>Login</Button>
+        </div>
+      );
+  }
+  onChangeLogin = () => {}
+  onChangePassword = () => {}
+  onClick = () => {}
+}
+```
+---
+class: center, middle
+```js
+import React from 'react';
+import Button from 'components/Button';
+import Input from 'components/Input';
+import { setLogin } from 'services/app';
+
+export class App extends React.Component {
+  render() {..}
+  onChangeLogin = (login) => {
+    this.props.dispatch(setLogin(login))
+  }
+  onChangePassword = () => {}
+  onClick = () => {}
+}
+```
+---
+class: center, middle
+# KONIEC
+---
+class: title, center, middle
+# Źródła
+---
+class: center, middle
+Prototypowanie z React [Poprzednia prezentacja](https://archibold.github.io/react-prototyping/)
+---
+class: center, middle
+in depth overview [Flux](https://facebook.github.io/flux/docs/in-depth-overview.html#content)
+---
+class: center, middle
+[Flux and Redux](https://blog.andyet.com/2015/08/06/what-the-flux-lets-redux/)
+---
+class: center, middle
+gotowe środowisko z Reactem, [Gatsby.js](https://www.gatsbyjs.org/)
+---
+class: center, middle
+Napisz maila: [piotr.borysowski@gmail.com](mailto:piotr.borysowski@gmail.com)
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="js/vendor/remark-language.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
